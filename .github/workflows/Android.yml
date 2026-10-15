@@ -11,31 +11,31 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: krdlab/setup-haxe@v1
         with:
           haxe-version: 4.2.3
-          
+
       - name: Cache haxelib path
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             %HAXELIB_ROOT%
           key: ${{ runner.os }}-android
-          
+
       - name: Setup Android SDK Tools
-        uses: android-actions/setup-android@v2.0.2
-        
+        uses: android-actions/setup-android@v3
+
       - name: Setup Java JDK
-        uses: actions/setup-java@v2.3.1
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '11'
-        
+
       - uses: nttld/setup-ndk@v1
         with:
           ndk-version: r15c
@@ -71,7 +71,7 @@ jobs:
           haxelib run lime setup android
           haxelib run lime build android -final
           
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: Android Build
           path: export/release/android/bin/app/build/outputs/apk/debug
